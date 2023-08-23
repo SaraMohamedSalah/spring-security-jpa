@@ -1,17 +1,20 @@
 package com.demo.security.repository;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.util.Collection;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Data
 @Builder
@@ -27,9 +30,12 @@ public class User implements UserDetails {
     private String email;
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private ERole role;
+
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    public Collection<GrantedAuthority> getAuthorities() {
+        return role.getAuthorities();
     }
 
     @Override

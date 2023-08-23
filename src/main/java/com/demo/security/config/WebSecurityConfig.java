@@ -2,15 +2,19 @@ package com.demo.security.config;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
+import com.demo.security.repository.ERole;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -63,6 +67,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
 //                .requestMatchers("/hello/**").permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole(String.valueOf(ERole.ADMIN))
                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -74,7 +79,7 @@ public class WebSecurityConfig {
                 .invalidateHttpSession(true)
                 .addLogoutHandler(logoutHandler)
                 .logoutSuccessHandler(((request, response, authentication) -> SecurityContextHolder.clearContext()));
-        http.headers(headers -> headers.frameOptions(frameOption -> frameOption.sameOrigin()));
+        http.headers(headers -> headers.frameOptions(FrameOptionsConfig::sameOrigin));
         return http.build();
     }
 }
