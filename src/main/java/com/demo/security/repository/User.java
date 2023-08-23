@@ -1,5 +1,6 @@
 package com.demo.security.repository;
 
+import com.demo.security.enums.ERole;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

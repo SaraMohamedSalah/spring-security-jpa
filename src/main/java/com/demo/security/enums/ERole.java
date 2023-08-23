@@ -1,4 +1,4 @@
-package com.demo.security.repository;
+package com.demo.security.enums;
 
 import java.util.Arrays;
 import java.util.List;
