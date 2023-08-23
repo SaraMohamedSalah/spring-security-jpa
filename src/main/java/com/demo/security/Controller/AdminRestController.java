@@ -12,6 +12,6 @@ public class AdminRestController {
 
     @GetMapping("/hello")
     public String helloAdmin() {
-        return "Hello Admin";
+        return "Hello Admin Authenticated";
     }
 }
