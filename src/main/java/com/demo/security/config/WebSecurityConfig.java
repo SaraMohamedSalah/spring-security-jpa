@@ -66,6 +66,7 @@ public class WebSecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
 //                .requestMatchers("/hello/**").permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole(String.valueOf(ERole.ADMIN))
+                .requestMatchers(new AntPathRequestMatcher("/user/**")).hasRole(String.valueOf(ERole.USER))
                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
                 .anyRequest().authenticated()
                 .and()

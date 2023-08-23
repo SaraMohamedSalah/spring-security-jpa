@@ -4,6 +4,7 @@ import com.demo.security.config.CustomUserDetailsService;
 import com.demo.security.config.JwtUtils;
 import com.demo.security.models.AuthenticationRequest;
 import com.demo.security.models.AuthenticationResponse;
+import com.demo.security.models.RegisterRequest;
 import com.demo.security.repository.Token;
 import com.demo.security.repository.TokenRepository;
 import com.demo.security.repository.User;
@@ -63,10 +64,11 @@ public class AuthenticationService {
         return Optional.empty();
     }
 
-    public AuthenticationResponse register(AuthenticationRequest request) {
+    public AuthenticationResponse register(RegisterRequest request) {
         User user = User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .role(request.getRole())
                 .build();
         User savedUser = userRepository.save(user);
         String jwtToken = jwtUtils.generateTokenFromUsername(user.getUsername());

@@ -2,6 +2,7 @@ package com.demo.security.Controller;
 
 import com.demo.security.models.AuthenticationRequest;
 import com.demo.security.models.AuthenticationResponse;
+import com.demo.security.models.RegisterRequest;
 import com.demo.security.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class AuthenticateResource {
     }
 
     @PostMapping("/register")
-    public AuthenticationResponse register(@RequestBody AuthenticationRequest request) throws UsernameNotFoundException {
+    public AuthenticationResponse register(@RequestBody RegisterRequest request) throws UsernameNotFoundException {
         return authenticationService.register(request);
     }
 
