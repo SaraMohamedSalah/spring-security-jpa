@@ -10,13 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloRestController {
 
     @GetMapping("/user")
-    @PreAuthorize("hasRole('USER')")
     public String helloUser() {
         return "Hello User";
     }
 
     @GetMapping("/admin")
-    @PreAuthorize("hasRole('ADMIN')")
     public String helloAdmin() {
         return "Hello Admin";
     }
